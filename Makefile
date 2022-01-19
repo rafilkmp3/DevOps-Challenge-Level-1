@@ -6,6 +6,8 @@ export $(shell sed 's/=.*//' $(dpl))
 
 # grep the version from git
 VERSION=$(shell ./version-up.sh  --patch --release | grep "TAG" | awk '{split($$0, a, ":"); print a[2]}' | sed 's/\x1b\[[0-9;]*m//g' | sed -e 's/^[[:space:]]*//')
+# calculate next version from git
+VERSION_BUMPED=$(shell ./version-up.sh  --patch --release --apply | grep "TAG" | awk '{split($$0, a, ":"); print a[2]}' | sed 's/\x1b\[[0-9;]*m//g' | sed -e 's/^[[:space:]]*//')
 
 PLATFORM := "linux/amd64,linux/arm/v7,linux/arm64"
 # HELP
@@ -79,3 +81,5 @@ repo-login: ## Auto login to ghcr
 
 version: ## output to version
 	@echo $(VERSION)
+version-bump: ## bump to new version 
+	@echo $(VERSION_BUMPED)

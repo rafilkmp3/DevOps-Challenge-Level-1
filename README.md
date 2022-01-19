@@ -120,6 +120,8 @@ make publish
 
 ###  The Github workflow of this repository is set to build and publish for every push to `main`  branch
 
+https://github.com/rafilkmp3/DevOps-Challenge-Level-1/actions
+
 ## Build the container with different config and deploy file
 
     make dpl=another_deploy.env build
