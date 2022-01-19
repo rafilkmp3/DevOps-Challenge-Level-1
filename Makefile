@@ -66,6 +66,7 @@ publish-version:## publish the calculated tagged container to Registry
 		--tag $(DOCKER_REPO)/$(APP_NAME):$(VERSION) .
 
 # Docker publish
+.PHONY: publish
 publish: publish-latest publish-version ## publish the `{version}` ans `latest` tagged containers to GHCR
 
 # HELPERS
