@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+# A deployment creates a replicaset from pods
+metadata:
+  name: frontend
+  labels:
+    app: flask
+    tier: frontend
+spec:
+  selector:
+    matchLabels:
+      app: flask
+      tier: frontend
+  # The template tells you what pods are used inside the deployment
+  template:
+    metadata:
+      labels:
+        app: flask
+        tier: frontend
+    spec:
+      # This tells you what docker container should be running inside a pod
+      containers:
+        - name: flask
+          image: ghcr.io/rafilkmp3/devops-challenge-level-1/my-super-app:latest
+          ports:
+            - containerPort: 9007
+          # You must specify requests for CPU to autoscale
+          # based on CPU utilization
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "500m"
+            limits:
+              memory: "256Mi"
+              cpu: "1000m"
+          # These probes are used to check whether it is still alive
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 9007
+            initialDelaySeconds: 30
+            timeoutSeconds: 1
+            periodSeconds: 30
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 9007
+            initialDelaySeconds: 30
+            timeoutSeconds: 1
+            periodSeconds: 30

@@ -83,3 +83,11 @@ version: ## output to version
 	@echo $(VERSION)
 version-bump: ## bump to new version 
 	@echo $(VERSION_BUMPED)
+
+# k8s
+k8s-deploy:
+	kubectl apply -f k8s
+k8s-clean:
+	kubectl delete-f k8s
+k8s-pf:
+	kubectl port-forward service/frontend 8080:80
