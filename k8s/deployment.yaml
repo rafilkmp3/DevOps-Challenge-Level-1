@@ -38,13 +38,17 @@ spec:
             httpGet:
               path: /
               port: 9007
-            initialDelaySeconds: 30
+            initialDelaySeconds: 3
             timeoutSeconds: 1
             periodSeconds: 30
           livenessProbe:
             httpGet:
               path: /
               port: 9007
-            initialDelaySeconds: 30
+            initialDelaySeconds: 3
             timeoutSeconds: 1
             periodSeconds: 30
+          securityContext:
+            capabilities:
+              drop:
+                - ALL
