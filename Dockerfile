@@ -1,4 +1,7 @@
-FROM python:3.8-alpine
+FROM python:3.9-alpine
+
+LABEL maintainer="rafilkmp3  <rafaelbsathler@gmail.com>" \
+      version="1.0.0"
 
 RUN pip install --upgrade pip
 
@@ -11,14 +14,10 @@ RUN pip install --user -r requirements.txt
 
 ENV PATH="/home/worker/.local/bin:${PATH}"
 
+COPY --chown=worker:worker . .
 
 ENV FLASK_APP=main.py
 ENV FLASK_DEBUG=1
-
-COPY --chown=worker:worker . .
-
-LABEL maintainer="rafilkmp3  <rafaelbsathler@gmail.com>" \
-      version="1.0.0"
 
 STOPSIGNAL SIGTERM
 
